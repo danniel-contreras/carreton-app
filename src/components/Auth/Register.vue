@@ -1,7 +1,7 @@
 <template>
   <div class="w-96 h-auto p-10 bg-white rounded-lg">
     <p class="text-center font-mono text-xl">Crea una nueva cuenta</p>
-    <Form @submit="register" :validation-schema="schema">
+    <Form @submit="onSubmit" :validation-schema="schema">
       <div class="flex flex-col">
         <label class="text-xs text-gray-500 font-mono font-semibold"
           >Nombre</label
@@ -65,7 +65,10 @@
           name="repassword"
         />
       </div>
-      <button class="btn text-white text-xs w-full rounded py-2 mt-2">
+      <button
+        type="submit"
+        class="btn text-white text-xs w-full rounded py-2 mt-2"
+      >
         Guardar
       </button>
     </Form>
@@ -103,9 +106,19 @@ export default {
     };
   },
   methods: {
-    register(values) {
-      auth.register(values).then((res) => {
-        console.log(res);
+    onSubmit(values) {
+      auth.newRegister(values).then((res) => {
+        if (res.data.ok) {
+          this.$toast.info(`Info Toast Message`, {
+            position: "bottom-right",
+          });
+          this.$emit("getUsers");
+          return;
+        }
+        this.$toast.error(`Error en los datos`, {
+          position: "bottom-right",
+        });
+        //this.$router.go();
       });
     },
   },

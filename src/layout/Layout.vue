@@ -1,9 +1,9 @@
 <template>
   <div class="w-screen h-screen flex">
-    <div class="w-80 p-6 h-full bg-gray-800">
+    <div class="w-80 p-6 h-full linear-gradient">
       <NavBar />
     </div>
-    <div class="fixed ml-80 p-16 w-full">
+    <div class="fixed ml-80 p-16 w-9/12">
       <slot />
     </div>
   </div>
@@ -20,4 +20,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.linear-gradient{
+  background: linear-gradient(180deg, #23023c 0%, #000000 100%);
+}
+</style>
