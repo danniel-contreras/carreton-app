@@ -50,7 +50,7 @@
         />
       </div>
       <button class="bg-blue-500 text-white text-xs w-full rounded py-2 mt-2">
-        Guardar
+        {{ product ? "Actualizar" : "Agregar" }}
       </button>
     </Form>
   </div>
@@ -92,7 +92,6 @@ export default {
   },
   methods: {
     onSubmit(values, { resetForm }) {
-      console.log(values, "hoña");
       if (this.product) {
         this.put(values, this.product.id, resetForm);
         return;

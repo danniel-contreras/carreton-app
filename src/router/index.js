@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Products from "../views/Products.vue";
+import ProductType from "../views/ProductType.vue";
+import Orders from "../views/Orders.vue";
+import ProductList from "../views/ProductList.vue"
 import { isUserLoggedApi } from "../services/token";
 
 const routes = [
@@ -14,6 +17,21 @@ const routes = [
     path: "/products",
     name: "Products",
     component: Products,
+  },
+  {
+    path: "/product-type",
+    name: "ProductTypes",
+    component: ProductType,
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    component: Orders,
+  },
+  {
+    path: "/new-order",
+    name: "NewOrder",
+    component: ProductList,
   },
   {
     path: "/login",

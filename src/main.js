@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import "./main.css";
+import "./main.css"; // tailwind basic styles
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -14,6 +14,9 @@ import {
   faPenAlt,
   faChevronDown,
   faChevronUp,
+  faShoppingCart,
+  faChevronLeft,
+  faChevronRight
 } from "@fortawesome/free-solid-svg-icons";
 import Toaster from "@meforma/vue-toaster";
 
@@ -25,7 +28,10 @@ library.add(
   faTrashAlt,
   faPenAlt,
   faChevronDown,
-  faChevronUp
+  faChevronUp,
+  faShoppingCart,
+  faChevronLeft,
+  faChevronRight
 );
 
 createApp(App)

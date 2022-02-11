@@ -5,6 +5,9 @@ export default {
   getProducts() {
     return axios.get(API_PATH + "/product-cart");
   },
+  getPaginates(page,name){
+    return axios.get(API_PATH + `/product-cart/product-paginated?take=5&page=${page}&name=${name}`)
+  },
   addProduct(data) {
     return axios.post(API_PATH + "/product-cart", data);
   },

@@ -22,7 +22,7 @@
                   class="transition-all duration-700 text-white px-6"
                 >
                   <li class="text-base font-medium">
-                    <router-link to="/products"
+                    <router-link to="/product-type"
                       >- Tipos de producto
                     </router-link>
                   </li>
@@ -32,6 +32,11 @@
                 </ul>
               </span>
             </div>
+          </li>
+          <li class="text-white font-semibold mt-2 text-lg font-mono">
+            <router-link to="/orders">
+              <font-awesome-icon icon="shopping-cart" /> Ordenes
+            </router-link>
           </li>
           <li class="text-white font-semibold mt-2 text-lg font-mono">
             <font-awesome-icon icon="user-alt" /> Mi Cuenta
