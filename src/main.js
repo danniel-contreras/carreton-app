@@ -16,7 +16,8 @@ import {
   faChevronUp,
   faShoppingCart,
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
+  faUserCircle
 } from "@fortawesome/free-solid-svg-icons";
 import Toaster from "@meforma/vue-toaster";
 
@@ -31,7 +32,8 @@ library.add(
   faChevronUp,
   faShoppingCart,
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
+  faUserCircle
 );
 
 createApp(App)

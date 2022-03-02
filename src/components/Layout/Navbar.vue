@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col w-full">
     <div class="flex flex-col justify-center items-center">
-      <p class="text-3xl text-white font-bold font-mono mt-6">Yaye Store</p>
+      <p class="text-3xl text-white font-bold font-mono mt-6">
+        <router-link to="/">Yaye Store</router-link>
+      </p>
       <img class="w-40 mt-4" src="../../assets/logo.png" />
     </div>
     <div class="ml-6">
@@ -39,7 +41,10 @@
             </router-link>
           </li>
           <li class="text-white font-semibold mt-2 text-lg font-mono">
-            <font-awesome-icon icon="user-alt" /> Mi Cuenta
+            <font-awesome-icon icon="user-alt" /> Usuarios
+          </li>
+           <li class="text-white font-semibold mt-2 text-lg font-mono">
+            <font-awesome-icon icon="user-circle" /> Mi Cuenta
           </li>
           <li
             @click="loggout"

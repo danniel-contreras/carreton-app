@@ -19,4 +19,12 @@ export default {
       headers: { token: "bearer:" + getToken() },
     });
   },
+  showTypes() {
+    return axios.get(API_PATH + "/type-product");
+  },
+  deleteType(id) {
+    return axios.delete(API_PATH + "/type-product/" + id, {
+      headers: { token: "bearer:" + getToken() },
+    });
+  },
 };

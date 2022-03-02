@@ -136,7 +136,7 @@ export default {
       }
     },
     getTypes() {
-      type_product.getTypeProducts().then((res) => {
+      type_product.showTypes().then((res) => {
         if (res.data.ok) {
           this.types = res.data.typesProducts;
         }

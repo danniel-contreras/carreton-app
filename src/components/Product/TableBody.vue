@@ -15,6 +15,8 @@
             <font-awesome-icon icon="pen-alt" />
           </button>
           <button
+           @click="deleteP(product)"
+            :id="`btn-` + product.id"
             class="text-white bg-red-500 px-3 text-sm py-1 rounded text-center ml-3"
           >
             <font-awesome-icon icon="trash-alt" />
@@ -30,6 +32,25 @@
         v-bind="prod.id"
       />
     </modal>
+    <modal v-show="visibleDelete" title="Eliminar producto" @close="closeModalDelete">
+       <p class="font-semibold text-xs font-mono">
+        ¿Estas seguro de eliminar este registro?
+      </p>
+      <div class="flex mt-3 justify-center">
+        <button
+          @click="deleteMethod()"
+          class="bg-blue-500 text-white text-xs px-4 py-2 rounded"
+        >
+          Aceptar
+        </button>
+        <button
+          @click="closeModalDelete"
+          class="bg-red-500 text-white text-xs ml-5 px-4 py-2 rounded"
+        >
+          Cancelar
+        </button>
+      </div>
+    </modal>
   </tbody>
 </template>
 
@@ -37,6 +58,7 @@
 import TD from "../Global/TD.vue";
 import Modal from "../Global/Modal.vue";
 import Form from "../Product/ProductForm.vue";
+import product from "../../services/product"
 
 export default {
   props: {
@@ -56,6 +78,7 @@ export default {
     return {
       visible: false,
       prod: {},
+      visibleDelete:false
     };
   },
   methods: {
@@ -65,15 +88,47 @@ export default {
       this.visible = true;
       newProd = {};
     },
+     deleteP(data) {
+      this.prod = data;
+      this.visibleDelete = true 
+    },
     showModal() {
       this.visible = true;
     },
     closeModal() {
       this.visible = false;
     },
+     closeModalDelete() {
+      this.visibleDelete = false;
+    },
     reload() {
       this.$emit("getProducts");
     },
+    deleteMethod(){
+       try {
+        product.delete(this.prod.id)
+          .then(() => {
+            this.$toast.info(`Se elimino el registro con exito`, {
+              position: "bottom-right",
+            });
+            this.closeModalDelete();
+            this.$emit("getProducts");
+          })
+          .catch(() => {
+            this.$toast.error(
+              `No puedes eliminar este registro porque ah sido usado`,
+              {
+                position: "bottom-right",
+              }
+            );
+            this.closeModalDelete();
+          });
+      } catch (error) {
+        this.$toast.error(`Se produjo un error inesperado`, {
+          position: "bottom-right",
+        });
+      }
+    }
   },
   computed() {
     this.setEdit();

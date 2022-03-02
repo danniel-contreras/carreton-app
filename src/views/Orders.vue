@@ -44,7 +44,7 @@
       <TableContent />
       <TableBody :orders="orders" />
     </Table>
-     <pagination
+    <pagination
       v-if="totalPag > 1"
       @method="getOrders"
       :currentPage="currentPage"
@@ -71,7 +71,7 @@ export default {
     Table,
     TableContent,
     TableBody,
-    Pagination
+    Pagination,
   },
   data() {
     return {
@@ -98,6 +98,11 @@ export default {
           return;
         }
         this.orders = [];
+        this.currentPage = 0;
+        this.pages = [];
+        this.totalPag = 0;
+        this.next = 0;
+        this.prev = 0;
       });
     },
     changeValue() {

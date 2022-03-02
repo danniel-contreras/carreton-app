@@ -17,4 +17,11 @@ export default {
       },
     });
   },
+  orders() {
+    return axios.get(API_PATH + `/order`, {
+      headers: {
+        token: "bearer:" + getToken(),
+      },
+    });
+  },
 };

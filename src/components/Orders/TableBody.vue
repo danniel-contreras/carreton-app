@@ -3,7 +3,7 @@
     <tr v-for="order in orders" v-bind:key="order.id">
       <TD :name="order.id" />
       <TD :name="order.orderCode" />
-      <TD :name="order.total_price" />
+      <TD :name="`$`+ order.total_price" />
       <TD :name="order.date" />
     </tr>
   </tbody>

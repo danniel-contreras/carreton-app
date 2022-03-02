@@ -19,7 +19,7 @@
 
       <button
         @click="showModal"
-        class="bg-blue-600 mr-auto ml-40 text-white px-8 text-sm py-1 rounded"
+        class="purple mr-auto ml-40 text-white px-8 text-sm py-1 rounded"
       >
         Agregar
       </button>
