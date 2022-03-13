@@ -41,7 +41,9 @@
             </router-link>
           </li>
           <li class="text-white font-semibold mt-2 text-lg font-mono">
+            <router-link to="/users">
             <font-awesome-icon icon="user-alt" /> Usuarios
+            </router-link>
           </li>
            <li class="text-white font-semibold mt-2 text-lg font-mono">
             <font-awesome-icon icon="user-circle" /> Mi Cuenta

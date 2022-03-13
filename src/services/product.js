@@ -13,7 +13,9 @@ export default {
     );
   },
   addProduct(data) {
-    return axios.post(API_PATH + "/product-cart", data);
+    return axios.post(API_PATH + "/product-cart", data, {
+      headers: { token: "bearer:" + getToken() },
+    });
   },
   putProduct(data, id) {
     return axios.put(API_PATH + "/product-cart/" + id, data);
