@@ -14,17 +14,11 @@
           >
             <font-awesome-icon icon="pen-alt" />
           </button>
-          <button
-            :id="`btn-` + user.id"
-            class="text-white bg-red-500 px-3 text-sm py-1 rounded text-center ml-3"
-          >
-            <font-awesome-icon icon="trash-alt" />
-          </button>
         </div>
       </TD>
     </tr>
     <modal @close="closeModal" title="Actualizar usuario" v-show="visible">
-      <Form @close="closeModal" @getUsers="getusers" :user="user"/>
+      <Edit @close="closeModal" @getUsers="reload" :user="user"/>
     </modal>
   </tbody>
 </template>
@@ -32,7 +26,7 @@
 <script>
 import TD from "../Global/TD.vue";
 import Modal from "../Global/Modal.vue";
-import Form from "../Users/Form.vue"
+import Edit from "../Users/Edit.vue"
 
 export default {
   props: {
@@ -46,7 +40,7 @@ export default {
   components: {
     TD,
     Modal,
-    Form
+    Edit
   },
   data() {
     return {
@@ -58,9 +52,15 @@ export default {
   },
   methods: {
     setEdit(user) {
-      this.user = user
-      console.log(user)
+      let newu =  {
+        id:user.id,
+        name: user.name,
+        lastname: user.lastname,
+        email: user.email
+      }
+      this.user = newu
       this.showModal()
+      newu = {}
     },
     showModal() {
       this.visible = true;
@@ -68,6 +68,9 @@ export default {
     closeModal() {
       this.visible = false;
     },
+    reload(){
+      this.$emit("getUsers")
+    }
   },
   computed() {
     this.setEdit();

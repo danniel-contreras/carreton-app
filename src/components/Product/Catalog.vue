@@ -12,7 +12,7 @@
       >
       <button
         @click="add(product)"
-        class="bg-blue-500 text-white rounded-md font-small py-1 mt-2"
+        class="purple text-white rounded-md font-small py-1 mt-2"
       >
         Agregar
       </button>

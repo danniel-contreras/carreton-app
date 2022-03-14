@@ -15,6 +15,7 @@
             <font-awesome-icon icon="pen-alt" />
           </button>
           <button
+          v-show="user.role ===  `Admin` "
            @click="deleteP(product)"
             :id="`btn-` + product.id"
             class="text-white bg-red-500 px-3 text-sm py-1 rounded text-center ml-3"
@@ -78,7 +79,8 @@ export default {
     return {
       visible: false,
       prod: {},
-      visibleDelete:false
+      visibleDelete:false,
+      user: this.$store.state.user,
     };
   },
   methods: {

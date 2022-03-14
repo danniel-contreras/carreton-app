@@ -15,7 +15,7 @@
       </div>
       <button
         type="submit"
-        class="bg-blue-500 text-white rounded w-full text-xs py-1 font-mono mt-3"
+        class="purple text-white rounded w-full text-xs py-1 font-mono mt-3"
       >
         {{ old ? "Actualizar" : "Agregar" }}
       </button>

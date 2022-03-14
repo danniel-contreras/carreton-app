@@ -5,7 +5,6 @@
       <TH name="CODIGO DE ORDEN" />
       <TH name="PRECIO TOTAL" />
       <TH name="FECHA" />
-      <TH name="ACCIONES" />
     </tr>
   </thead>
 </template>

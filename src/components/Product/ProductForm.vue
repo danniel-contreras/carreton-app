@@ -49,7 +49,7 @@
           name="typeProduct"
         />
       </div>
-      <button class="bg-blue-500 text-white text-xs w-full rounded py-2 mt-2">
+      <button class="purple text-white text-xs w-full rounded py-2 mt-2">
         {{ product ? "Actualizar" : "Agregar" }}
       </button>
     </Form>

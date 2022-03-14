@@ -11,4 +11,10 @@ export default {
       headers: { token: "bearer" + getToken() },
     });
   },
+  addUser(data,id) {
+    return axios.put(API_PATH + "/user/" + id, data,{
+      headers: { token: "bearer" + getToken() },
+    }
+    );
+  },
 };

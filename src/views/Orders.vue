@@ -33,7 +33,7 @@
       </div>
       <div>
         <router-link
-          class="float-right bg-blue-600 text-white w-32 h-7 text-center flex items-center rounded text-sm px-8"
+          class="float-right purple text-white w-32 h-7 text-center flex items-center rounded text-sm px-8"
           to="new-order"
         >
           Nueva orden</router-link

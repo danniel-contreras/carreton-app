@@ -40,13 +40,10 @@
               <font-awesome-icon icon="shopping-cart" /> Ordenes
             </router-link>
           </li>
-          <li class="text-white font-semibold mt-2 text-lg font-mono">
+          <li v-show="userLog.role === `Admin`" class="text-white font-semibold mt-2 text-lg font-mono">
             <router-link to="/users">
             <font-awesome-icon icon="user-alt" /> Usuarios
             </router-link>
-          </li>
-           <li class="text-white font-semibold mt-2 text-lg font-mono">
-            <font-awesome-icon icon="user-circle" /> Mi Cuenta
           </li>
           <li
             @click="loggout"
@@ -66,6 +63,7 @@ export default {
   data() {
     return {
       showProduct: false,
+      userLog:this.$store.state.user
     };
   },
   methods: {
