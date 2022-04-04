@@ -87,7 +87,7 @@ export default {
       this.visible = false;
     },
     getProducts(page = 1, name = "") {
-      product.getPaginates(page, name).then(({ data }) => {
+      product.getPaginates(page, name,5).then(({ data }) => {
         if (data.ok) {
           this.products = data.products;
           this.currentPage = data.curentPag;

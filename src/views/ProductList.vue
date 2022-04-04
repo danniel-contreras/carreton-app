@@ -3,145 +3,123 @@
     <p class="font-mono font-semibold text-xl mb-5">
       Lista de productos disponibles
     </p>
-    <div class="flex">
-      <div class="flex mb-5">
-        <label class="text-gray-500 text-xs pt-1 font-semibold font-mono mr-2"
-          >Buscar</label
-        >
-        <div class="relative flex text-gray-600 focus-within:text-gray-400">
-          <input-icon />
-          <input
-            placeholder="Escribe para buscar..."
-            @keyup="search"
-            v-model="name"
-            class="w-96 py-1 text-xs pl-10 rounded border outline-none"
-          />
-        </div>
-      </div>
-      <div v-closable="close" class="absolute right-24 top-16 flex flex-col">
-        <button
-          class="text-white font-bold text-3 p-3 rounded-full shadow hover:shadow-lg bg-green-500 ease-linear transition-all duration-150 outline-none focus:outline-none mr-1 mb-1 capitalize w-full"
-          type="button"
-          v-on:click="toggleDropdown()"
-          ref="btnDropdownRef"
-        >
-          <span
-            class="bg-red-500 text-white absolute -top-2 rounded p-1 font-small right-1"
-            >{{ count }}</span
-          >
-          <font-awesome-icon icon="shopping-cart" />
-        </button>
-        <CartProducts
-          @removeCart="removeCart"
-          @clearCart="clearCart"
-          :cart="cart"
-          :dropdownPopoverShow="dropdownPopoverShow"
-        />
-      </div>
+    <div class="flex mt-4">
+      <span class="font-semibold font-mono text-xl"
+        >Total: ${{ reduceAll(order) }}</span
+      >
+      <button
+        @click="realize"
+        class="purple rounded text-xs text-white py-2 px-8 ml-20"
+      >
+        Realizar
+      </button>
     </div>
-
-    <Catalog @addCart="addCart"  :products="products" />
-    <pagination
-      v-if="totalPag > 1"
-      @method="getProducts"
-      :currentPage="currentPage"
-      :pages="pages"
-    />
+    <div class="grid grid-cols-3 gap-4 mt-8">
+      <ul>
+        <li class="bg-gray-900 text-white font-mono text-center py-2">
+          Sorbetes
+        </li>
+        <li
+          class="text-white font-mono text-center py-2"
+          v-for="(sorbete, index) in sorbetes"
+          v-bind:key="sorbete.id"
+          :class="index % 2 === 0 ? `bg-gray-700` : `bg-gray-800`"
+        >
+          {{ sorbete.name }}
+          <input
+            class="w-5 h-5 ml-6 pt-1"
+            type="checkbox"
+            :id="`input-sorbete` + index"
+            :value="{ id: sorbete.id, price: sorbete.price, quantity: 1 }"
+            v-model="order"
+          />
+        </li>
+      </ul>
+      <ul>
+        <li class="bg-gray-800 text-white font-mono text-center py-2">
+          Jaleas
+        </li>
+        <li
+          class="text-white font-mono text-center py-2"
+          v-for="(jalea, index) in jaleas"
+          v-bind:key="jalea.id"
+          :class="index % 2 === 0 ? `bg-gray-600` : `bg-gray-700`"
+        >
+          {{ jalea.name }}
+          <input
+            class="w-5 h-5 ml-6 pt-1"
+            type="checkbox"
+            :id="`input-jalea` + index"
+            :value="{ id: jalea.id, price: jalea.price, quantity: 1 }"
+            v-model="order"
+          />
+        </li>
+      </ul>
+      <ul>
+        <li class="bg-gray-700 text-white font-mono text-center py-2">
+          Toppings
+        </li>
+        <li
+          class="text-white font-mono text-center py-2"
+          v-for="(top, index) in toppings"
+          v-bind:key="top.id"
+          :class="index % 2 === 0 ? `bg-gray-500` : `bg-gray-600`"
+        >
+          {{ top.name }}
+          <input
+            class="w-5 h-5 ml-6 pt-1"
+            type="checkbox"
+            :id="`input-top` + index"
+            :value="{ id: top.id, price: top.price, quantity: 1 }"
+            v-model="order"
+          />
+        </li>
+      </ul>
+    </div>
   </Layout>
 </template>
 
 <script>
 import Layout from "../layout/Layout.vue";
 import product from "../services/product";
-import Catalog from "../components/Product/Catalog.vue";
-import CartProducts from "../components/Global/CartProducts.vue";
-import Pagination from "../components/Global/Pagination.vue";
-import { createPopper } from "@popperjs/core";
-import { setItemCart, removeItem } from "../utils/cart";
-import { paginate } from "../utils/utils";
+import order from "../services/orders";
+import { reduceTotal } from "../utils/filters";
+import { filterJaleas, filterSorbetes, filterToppings } from "../utils/filters";
 
 export default {
   components: {
     Layout,
-    Catalog,
-    CartProducts,
-    Pagination,
   },
   data() {
     return {
-      currentPage: 0,
-      next: 0,
-      prev: 0,
-      totalPag: 0,
-      products: [],
-      dropdownPopoverShow: false,
-      count: 0,
-      cart: undefined,
-      pages: [],
-      name: "",
+      jaleas: [],
+      toppings: [],
+      sorbetes: [],
+      order: [],
     };
   },
   methods: {
+    reduceAll: reduceTotal,
     getProducts(page = 1, name = "") {
-      product.getPaginates(page, name).then(({ data }) => {
+      product.getPaginates(page, name,10000).then(({ data }) => {
         if (data.ok) {
-          this.products = data.products;
-          this.currentPage = data.curentPag;
-          this.pages = paginate(data.curentPag, data.totalPag, 1);
-          this.totalPag = data.totalPag;
-          this.next = data.nextPag;
-          this.prev = data.prevPag;
+          this.sorbetes = filterSorbetes(data.products);
+          this.jaleas = filterJaleas(data.products);
+          this.toppings = filterToppings(data.products);
         }
       });
     },
-    toggleDropdown() {
-      if (this.dropdownPopoverShow) {
-        this.dropdownPopoverShow = false;
-      } else {
-        this.dropdownPopoverShow = true;
-        createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
-          placement: "bottom-start",
+    realize() {
+      order.newOrder(this.order).then(() => {
+        this.$toast.info(`Se realizo la compra!`, {
+          position: "bottom-right",
         });
-      }
-    },
-    addCart(prod) {
-      const nw = setItemCart(prod, this.cart);
-      this.cart = nw;
-      this.count = this.cart.length;
-    },
-    removeCart(prod) {
-      const remo = removeItem(prod, this.cart);
-      this.cart = remo;
-      this.count = this.cart.length;
-    },
-    clearCart(){
-      this.cart = []
-      this.count = 0
-    },
-    close() {
-      this.dropdownPopoverShow = false;
-    },
-    search() {
-      this.getProducts(1, this.name);
+        this.order = [];
+      });
     },
   },
   mounted() {
     this.getProducts();
-  },
-  directives: {
-    closable: {
-      beforeMount(el, binding) {
-        el.clickOutsideEvent = function (event) {
-          if (!(el === event.target || el.contains(event.target))) {
-            binding.value(event, el);
-          }
-        };
-        document.body.addEventListener("click", el.clickOutsideEvent);
-      },
-      unmounted(el) {
-        document.body.removeEventListener("click", el.clickOutsideEvent);
-      },
-    },
   },
 };
 </script>

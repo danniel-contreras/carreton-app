@@ -24,4 +24,11 @@ export default {
       },
     });
   },
+  getOrderDetails(id){
+  return axios.get(API_PATH + `/order-detail/od-detailsByOrder/${id}`, {
+      headers: {
+        token: "bearer:" + getToken(),
+      },
+    });
+  }
 };

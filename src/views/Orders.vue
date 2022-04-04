@@ -2,7 +2,7 @@
   <Layout>
     <p class="text-2xl font-thin font-mono text-gray-700">Lista de ordenes</p>
 
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-2 gap-4">
       <div class="flex flex-col">
         <label class="font-semibold text-xs">Buscar por codigo de orden</label>
         <input
@@ -12,25 +12,7 @@
           class="border rounded py-1 px-3 w-full text-xs"
         />
       </div>
-      <div class="flex flex-col ml-5">
-        <label class="font-semibold text-xs">Filtrar por estado</label>
-        <div
-          className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
-        >
-          <input
-            type="checkbox"
-            name="toggle"
-            id="toggle"
-            :checked="status"
-            class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
-            @click="changeValue"
-          />
-          <label
-            htmlFor="toggle"
-            class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
-          ></label>
-        </div>
-      </div>
+     
       <div>
         <router-link
           class="float-right purple text-white w-32 h-7 text-center flex items-center rounded text-sm px-8"
@@ -118,16 +100,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.toggle-checkbox:checked {
-  @apply: right-0 border-green-400;
-  right: 0;
-  border-color: #68d391;
-}
-
-.toggle-checkbox:checked + .toggle-label {
-  @apply: bg-green-400;
-  background-color: #68d391;
-}
-</style>
